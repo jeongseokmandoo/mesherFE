@@ -1,0 +1,21 @@
+.headerbox {
+  width: 90%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerbox p {
+  font-size: 20px;
+}
+
+.headerbox .btn {
+  width: 10%;
+  height: auto;
+  margin-top: 3%;
+}
+
+.headerbox .btn img {
+  width: 100%;
+  height: auto;
+}

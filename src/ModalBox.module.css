@@ -1,0 +1,72 @@
+.modalBox {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  background-color: rgb(4, 23, 40);
+  color: azure;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalBox input {
+  width: 91%;
+  height: 70px;
+  border-color: blue;
+  outline: none;
+  background-color: transparent;
+  font-size: 20px;
+  border-radius: 20px;
+  padding-left: 10px;
+  color: white;
+}
+
+.modalBox .recentTokenList {
+  width: 91%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.modalBox .recentTokenList .recentTokenBox {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+  margin-right: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: gray;
+  font-size: 18px;
+}
+
+.modalBox .recentTokenList .recentTokenBox:hover {
+  color: rgb(179, 179, 179);
+  background-color: rgb(94, 94, 94);
+}
+
+.modalBox .tokenList {
+  width: 95%;
+  overflow: auto;
+  margin-top: 3px;
+  padding-top: 10px;
+  border-top: 1px solid;
+  border-color: gray;
+}
+
+.modalBox .tokenList .tokenBox {
+  width: 100%;
+  height: 50px;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  color: rgb(182, 182, 182);
+}
+
+.modalBox .tokenList .tokenBox:hover {
+  background-color: rgb(14, 74, 127);
+  color: white;
+}
