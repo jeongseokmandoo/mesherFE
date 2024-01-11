@@ -8,7 +8,13 @@ import settingIcon from "./assets/icons8-settings-50.png";
 
 const SwapBtn: React.FC<{ tokenValue: boolean }> = ({ tokenValue }) => {
   return tokenValue ? (
-    <div className={styles.swapBtn} style={{ backgroundColor: "#3A70DA" }}>
+    <div
+      className={styles.swapBtn}
+      style={{ backgroundColor: "#3A70DA" }}
+      onClick={() => {
+        alert("준비 중입니다");
+      }}
+    >
       스왑
     </div>
   ) : (
@@ -21,9 +27,9 @@ const SwapBtn: React.FC<{ tokenValue: boolean }> = ({ tokenValue }) => {
 const SwapBox: React.FC<{}> = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [tokenName1, setTokenName1] = useState("ETH");
-  const [tokenValue1, setTokenValue1] = useState(0.0);
+  const [tokenValue1, setTokenValue1] = useState("");
   const [tokenName2, setTokenName2] = useState("USDC");
-  const [tokenValue2, setTokenValue2] = useState(0.0);
+  const [tokenValue2, setTokenValue2] = useState("");
   const [tokenBtnValue, setTokenBtnValue] = useState("");
   const [recentTokens, setRecentTokens] = useState(
     JSON.parse(localStorage.getItem("tokens") || "[]")
@@ -37,7 +43,7 @@ const SwapBox: React.FC<{}> = () => {
   const tokenValue = Boolean(tokenValue1 || tokenValue2);
   const [exchangeContent, setExchangeContent] = useState("");
 
-  const handleMainClick = () => alert("아직 준비 중입니다.");
+  const handleMainClick = () => alert("준비 중입니다");
 
   const getUsdRate = async (
     tokens: {
@@ -96,23 +102,47 @@ const SwapBox: React.FC<{}> = () => {
     // 숫자와 . 이외의 문자를 제거
     inputVal = inputVal.replace(/[^0-9.]/g, "");
 
+    while (
+      inputVal.charAt(0) === "0" &&
+      inputVal.charAt(1) !== "." &&
+      inputVal.length > 1
+    ) {
+      inputVal = inputVal.slice(1);
+    }
+
+    // "."이 두 번 이상 포함된 경우 무시
+    if ((inputVal.match(/\./g) || []).length > 1) {
+      return;
+    }
+
+    // 소수점 10번째 자리까지만 허용
+    const decimalIndex = inputVal.indexOf(".");
+    if (decimalIndex !== -1 && inputVal.length > decimalIndex + 11) {
+      inputVal = inputVal.slice(0, decimalIndex + 11);
+    }
+
     console.log(inputVal);
     if (inputVal !== "") {
       const tokenVal1 = parseFloat(inputVal);
-      setTokenValue1(tokenVal1);
+      console.log(tokenVal1);
+      setTokenValue1(inputVal);
       const tokenVal2 = (usd1 / (usd2 || 1)) * tokenVal1;
-      setTokenValue2(tokenVal2);
+      const deciIndex = String(tokenVal1).indexOf(".");
+      if (deciIndex !== -1 && String(tokenVal2).length > deciIndex + 11) {
+        setTokenValue2(String(tokenVal2).slice(0, deciIndex + 11));
+      } else {
+        setTokenValue2(String(tokenVal2));
+      }
       setExchangeValue1(tokenVal1 * usd1);
       setExchangeContent(
-        `1 ${tokenName1} = ${tokenVal2 / tokenVal1} ${tokenName2}($${usd1})`
+        `1 ${tokenName2} = ${tokenVal1 / tokenVal2} ${tokenName1} ($${usd2})`
       );
     } else {
-      setTokenValue1(0);
-      setTokenValue2(0);
+      setTokenValue1("0");
+      setTokenValue2("0");
       setExchangeValue1(0);
       setExchangeContent("");
     }
-    console.log(exchangeContent);
   };
 
   const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,19 +151,43 @@ const SwapBox: React.FC<{}> = () => {
     // 숫자와 . 이외의 문자를 제거
     inputVal = inputVal.replace(/[^0-9.]/g, "");
 
+    while (
+      inputVal.charAt(0) === "0" &&
+      inputVal.charAt(1) !== "." &&
+      inputVal.length > 1
+    ) {
+      inputVal = inputVal.slice(1);
+    }
     console.log(inputVal);
+
+    // "."이 두 번 이상 포함된 경우 무시
+    if ((inputVal.match(/\./g) || []).length > 1) {
+      return;
+    }
+
+    // 소수점 10번째 자리까지만 허용
+    const decimalIndex = inputVal.indexOf(".");
+    if (decimalIndex !== -1 && inputVal.length > decimalIndex + 11) {
+      inputVal = inputVal.slice(0, decimalIndex + 11);
+    }
+
     if (inputVal !== "") {
       const tokenVal2 = parseFloat(inputVal);
-      setTokenValue2(tokenVal2);
+      setTokenValue2(inputVal);
       const tokenVal1 = (usd1 / (usd2 || 1)) * tokenVal2;
-      setTokenValue1(tokenVal1);
+      const deciIndex = String(tokenVal1).indexOf(".");
+      if (deciIndex !== -1 && String(tokenVal1).length > deciIndex + 11) {
+        setTokenValue1(String(tokenVal1).slice(0, deciIndex + 11));
+      } else {
+        setTokenValue1(String(tokenVal1));
+      }
       setExchangeValue1(tokenVal2 * usd2);
       setExchangeContent(
-        `1 ${tokenName2} = ${tokenVal1 / tokenVal2} ${tokenName1}($${usd2})`
+        `1 ${tokenName1} = ${tokenVal2 / tokenVal1} ${tokenName2} ($${usd1})`
       );
     } else {
-      setTokenValue2(0);
-      setTokenValue1(0);
+      setTokenValue2("0");
+      setTokenValue1("0");
       setExchangeValue2(0);
       setExchangeContent("");
     }
@@ -149,8 +203,8 @@ const SwapBox: React.FC<{}> = () => {
 
   //모달창 내에서 보여줄 최근 선택 토큰 리스트
   const handleTokenClick = (tokenName: string) => {
-    setTokenValue1(0);
-    setTokenValue2(0);
+    setTokenValue1("0");
+    setTokenValue2("0");
     setExchangeValue1(0);
     setExchangeValue2(0);
     setExchangeContent("");

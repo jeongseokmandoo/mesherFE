@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../SwapBox.module.css";
 
 export const SwapInputBox: React.FC<{
-  tokenValue: number;
+  tokenValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   tokenName: string;
@@ -19,14 +19,15 @@ export const SwapInputBox: React.FC<{
   return (
     <div className={styles.inputBox}>
       <input
-        type="number"
-        step={0.0000000001}
+        type="text"
         name={tokenName}
         value={tokenValue}
         onChange={onChange}
-        placeholder="금액"
+        placeholder="0.0"
       />
-      <div className={styles.exchange}>$ {exchangeValue}</div>
+      <div className={styles.exchange}>
+        $ {parseFloat(exchangeValue.toFixed(10))}
+      </div>
       <button className={styles[tokenBtn]} onClick={onClick}>
         {tokenName}
       </button>
