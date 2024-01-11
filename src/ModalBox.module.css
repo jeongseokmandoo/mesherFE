@@ -3,7 +3,7 @@
   position: absolute;
   width: 100%;
   height: 600px;
-  background-color: rgb(4, 23, 40);
+  background-color: #141619;
   color: azure;
   border-radius: 10px;
   display: flex;
@@ -14,7 +14,7 @@
 .modalBox input {
   width: 91%;
   height: 70px;
-  border-color: blue;
+  border-color: #396fd8;
   outline: none;
   background-color: transparent;
   font-size: 20px;
@@ -29,6 +29,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   margin-top: 10px;
+  color: white;
 }
 
 .modalBox .recentTokenList .recentTokenBox {
@@ -40,13 +41,13 @@
   margin-bottom: 2px;
   border-radius: 10px;
   border: 1px solid;
-  border-color: gray;
+  border-color: #3f424b;
   font-size: 18px;
 }
 
 .modalBox .recentTokenList .recentTokenBox:hover {
-  color: rgb(179, 179, 179);
-  background-color: rgb(94, 94, 94);
+  color: #969696;
+  background-color: #444444;
 }
 
 .modalBox .tokenList {
@@ -63,7 +64,7 @@
   height: 50px;
   padding-top: 5px;
   padding-bottom: 2px;
-  color: rgb(182, 182, 182);
+  color: #cccccc;
 }
 
 .modalBox .tokenList .tokenBox:hover {

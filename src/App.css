@@ -2,8 +2,8 @@
   position: relative;
   width: 400px;
   height: 600px;
-  background-color: rgb(4, 23, 40);
-  color: azure;
+  background-color: #141619;
+  color: #cccccc;
   border-radius: 10px;
   display: flex;
   flex-direction: column;

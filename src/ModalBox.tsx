@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderBox from "./HeaderBox";
-import xIcon from "./assets/X_Icon.png";
+import xIcon from "./assets/icons8-x-50.png";
 import styles from "./ModalBox.module.css";
 
 const RecentTokenList: React.FC<{ recentTokenList: string[] }> = ({

@@ -10,12 +10,13 @@
 }
 
 .headerbox .btn {
-  width: 10%;
+  width: 7%;
   height: auto;
-  margin-top: 3%;
+  margin-top: 5%;
 }
 
 .headerbox .btn img {
   width: 100%;
   height: auto;
+  background-color: rgb(4, 23, 40);
 }
