@@ -30,8 +30,8 @@ const TokenBox: React.FC<{
       className={styles.tokenBox}
       onClick={() => handleTokenClick(token.name)}
     >
-      <div>{token.name}</div>
-      <div>{token.id}</div>
+      <div className={styles.tokenName}>{token.name}</div>
+      <div className={styles.tokenId}>{token.id}</div>
     </div>
   );
 };

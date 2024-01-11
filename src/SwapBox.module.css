@@ -23,8 +23,14 @@
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 40px;
-  color: #8f94a6;
+  font-size: 20px;
+  color: white;
+}
+
+.inputBox input::-webkit-outer-spin-button,
+.inputBox input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .inputBox .exchange {
@@ -38,13 +44,13 @@
 .inputBox .tokenBtn1,
 .tokenBtn2 {
   position: absolute;
-  top: 15%;
+  top: 14%;
   right: 5%;
-  height: 40%;
+  height: 30%;
   width: auto;
   border-radius: 10px;
 
-  font-size: 35px;
+  font-size: 25px;
   border: none;
   outline: none;
   background-color: #24262a;
@@ -55,7 +61,10 @@
   width: 85%;
   height: 5%;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  color: #e8e8e9;
+  font-size: 15px;
 }
 
 .swapBtn {

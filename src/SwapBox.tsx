@@ -3,6 +3,8 @@ import ModalBox from "./ModalBox";
 import styles from "./SwapBox.module.css";
 import { TOKENS, TokenPriceData } from "./constants";
 import { SwapInputBox } from "./components/swap/SwapInputBox";
+import HeaderBox from "./HeaderBox";
+import settingIcon from "./assets/icons8-settings-50.png";
 
 const SwapBtn: React.FC<{ tokenValue: boolean }> = ({ tokenValue }) => {
   return tokenValue ? (
@@ -33,6 +35,9 @@ const SwapBox: React.FC<{}> = () => {
   const [exchangeValue2, setExchangeValue2] = useState(0);
   const [tokenServerData, setTokenServerData] = useState<TokenPriceData>();
   const tokenValue = Boolean(tokenValue1 || tokenValue2);
+  const [exchangeContent, setExchangeContent] = useState("");
+
+  const handleMainClick = () => alert("아직 준비 중입니다.");
 
   const getUsdRate = async (
     tokens: {
@@ -84,24 +89,53 @@ const SwapBox: React.FC<{}> = () => {
     setSwapBoxDisplay("flex");
   };
 
-  useEffect(() => {
-    setTokenValue2((usd1 / (usd2 || 1)) * tokenValue1);
-  }, [tokenValue1]);
-
-  useEffect(() => {
-    setTokenValue1((usd2 / (usd1 || 1)) * tokenValue2);
-  }, [tokenValue2]);
-
   // input 토큰 가격 입력 시 실행되는 함수
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(usd1, usd2);
-    if (e.target.name === tokenName1) {
-      setTokenValue1(parseFloat(e.target.value));
-      setExchangeValue1(Number(e.target.value) * usd1);
-      console.log(tokenValue2);
-    } else if (e.target.name === tokenName2) {
-      setTokenValue1(parseFloat(e.target.value));
-      setExchangeValue2(Number(e.target.value) * usd2);
+  const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputVal = e.target.value;
+
+    // 숫자와 . 이외의 문자를 제거
+    inputVal = inputVal.replace(/[^0-9.]/g, "");
+
+    console.log(inputVal);
+    if (inputVal !== "") {
+      const tokenVal1 = parseFloat(inputVal);
+      setTokenValue1(tokenVal1);
+      const tokenVal2 = (usd1 / (usd2 || 1)) * tokenVal1;
+      setTokenValue2(tokenVal2);
+      setExchangeValue1(tokenVal1 * usd1);
+      setExchangeContent(
+        `1 ${tokenName1} = ${tokenVal2 / tokenVal1} ${tokenName2}($${usd1})`
+      );
+    } else {
+      setTokenValue1(0);
+      setTokenValue2(0);
+      setExchangeValue1(0);
+      setExchangeContent("");
+    }
+    console.log(exchangeContent);
+  };
+
+  const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputVal = e.target.value;
+
+    // 숫자와 . 이외의 문자를 제거
+    inputVal = inputVal.replace(/[^0-9.]/g, "");
+
+    console.log(inputVal);
+    if (inputVal !== "") {
+      const tokenVal2 = parseFloat(inputVal);
+      setTokenValue2(tokenVal2);
+      const tokenVal1 = (usd1 / (usd2 || 1)) * tokenVal2;
+      setTokenValue1(tokenVal1);
+      setExchangeValue1(tokenVal2 * usd2);
+      setExchangeContent(
+        `1 ${tokenName2} = ${tokenVal1 / tokenVal2} ${tokenName1}($${usd2})`
+      );
+    } else {
+      setTokenValue2(0);
+      setTokenValue1(0);
+      setExchangeValue2(0);
+      setExchangeContent("");
     }
   };
 
@@ -115,6 +149,11 @@ const SwapBox: React.FC<{}> = () => {
 
   //모달창 내에서 보여줄 최근 선택 토큰 리스트
   const handleTokenClick = (tokenName: string) => {
+    setTokenValue1(0);
+    setTokenValue2(0);
+    setExchangeValue1(0);
+    setExchangeValue2(0);
+    setExchangeContent("");
     const oldTokens = recentTokens;
 
     for (let i = 0; i < oldTokens.length; i++) {
@@ -143,9 +182,14 @@ const SwapBox: React.FC<{}> = () => {
   return (
     <>
       <div className={styles.swapBox} style={{ display: swapBoxDisplay }}>
+        <HeaderBox
+          text="스왑"
+          icon={settingIcon}
+          handleClick={handleMainClick}
+        />
         <SwapInputBox
           tokenValue={tokenValue1}
-          onChange={handleChange}
+          onChange={handleChange1}
           onClick={openModal}
           tokenName={tokenName1}
           tokenBtn="tokenBtn1"
@@ -153,14 +197,14 @@ const SwapBox: React.FC<{}> = () => {
         />
         <SwapInputBox
           tokenValue={tokenValue2}
-          onChange={handleChange}
+          onChange={handleChange2}
           onClick={openModal}
           tokenName={tokenName2}
           tokenBtn="tokenBtn2"
           exchangeValue={exchangeValue2}
         />
 
-        <div className={styles.exchangeRate}>얼마얼마</div>
+        <div className={styles.exchangeRate}>{exchangeContent}</div>
 
         <SwapBtn tokenValue={tokenValue} />
       </div>

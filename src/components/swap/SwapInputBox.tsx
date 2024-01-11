@@ -19,7 +19,8 @@ export const SwapInputBox: React.FC<{
   return (
     <div className={styles.inputBox}>
       <input
-        type="text"
+        type="number"
+        step={0.0000000001}
         name={tokenName}
         value={tokenValue}
         onChange={onChange}

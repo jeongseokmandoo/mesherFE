@@ -12,7 +12,7 @@
 }
 
 .modalBox input {
-  width: 91%;
+  width: 89%;
   height: 70px;
   border-color: #396fd8;
   outline: none;
@@ -21,24 +21,23 @@
   border-radius: 20px;
   padding-left: 10px;
   color: white;
+  margin-top: 4%;
 }
 
 .modalBox .recentTokenList {
-  width: 91%;
+  width: 95%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  margin-top: 10px;
+  margin: 10px 0;
   color: white;
 }
 
 .modalBox .recentTokenList .recentTokenBox {
   height: 36px;
-  line-height: 36px;
+  line-height: 38px;
   padding: 0 16px;
-  margin-right: 10px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin: 3px 4px;
   border-radius: 10px;
   border: 1px solid;
   border-color: #3f424b;
@@ -64,10 +63,22 @@
   height: 50px;
   padding-top: 5px;
   padding-bottom: 2px;
+  padding-left: 10%;
   color: #cccccc;
 }
 
 .modalBox .tokenList .tokenBox:hover {
-  background-color: rgb(14, 74, 127);
+  background-color: #2d2f35;
   color: white;
+}
+
+.modalBox .tokenList .tokenBox .tokenName {
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.modalBox .tokenList .tokenBox .tokenId {
+  font-size: 15px;
+  font-weight: lighter;
 }
