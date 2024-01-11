@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderBox from "./HeaderBox";
 import xIcon from "./assets/icons8-x-50.png";
 import styles from "./ModalBox.module.css";
+import { TOKENS } from "./constants";
 
 const RecentTokenList: React.FC<{ recentTokenList: string[] }> = ({
   recentTokenList,
@@ -60,25 +61,10 @@ const ModalBox: React.FC<{
 }> = ({ modalOpen, closeModal, handleTokenClick, recentTokenList }) => {
   // console.log(tokenBtnValue);
   const [tokenValue, setTokenValue] = useState("");
-  const tokens: {
-    name: string;
-    id: string;
-  }[] = [
-    { name: "ETH", id: "ethereum" },
-    { name: "USDT", id: "tether" },
-    { name: "USDC", id: "usd-coin" },
-    { name: "DAI", id: "dai" },
-    { name: "AAVE", id: "aave" },
-    { name: "WBTC", id: "bitcoin" },
-    { name: "AXS", id: "axie-infinity" },
-    { name: "COMP", id: "compound-coin" },
-    { name: "CRV", id: "curve-dao-token" },
-    { name: "ENS", id: "ethereum-name-service" },
-  ];
-  const [filteredTokens, setFilteredTokens] = useState(tokens);
+  const [filteredTokens, setFilteredTokens] = useState(TOKENS);
 
   useEffect(() => {
-    const result = tokens.filter((token) =>
+    const result = TOKENS.filter((token) =>
       token.name.toLowerCase().includes(tokenValue.toLowerCase())
     );
     setFilteredTokens(result);
