@@ -52,7 +52,7 @@ const SwapBox: React.FC<{}> = () => {
     }[]
   ) => {
     const idsQuery = ""
-      .concat(...tokens.map(({ name, id }) => `${id},`))
+      .concat(...tokens.map(({ id }) => `${id},`))
       .slice(0, -1); // 마지막 , 제거
     const response = await fetch(
       `https://api.coingecko.com/api/v3/simple/price?vs_currencies=USD&ids=${idsQuery}`
